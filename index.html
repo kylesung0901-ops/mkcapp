@@ -17,7 +17,7 @@
     <meta property="og:description"
         content="Explore the unique sounds of South Korea with our interactive dialect map.">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="public/logo.png">
+    <meta property="og:image" content="/logo.png">
     <meta property="og:url" content="https://mkcapp.example.com"> <!-- Placeholder for URL -->
 
     <!-- Twitter -->
@@ -25,10 +25,10 @@
     <meta name="twitter:title" content="MKC App - Regional Dialects Map">
     <meta name="twitter:description"
         content="Explore the unique sounds of South Korea with our interactive dialect map.">
-    <meta name="twitter:image" content="public/logo.png">
+    <meta name="twitter:image" content="/logo.png">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="public/logo.png">
+    <link rel="icon" type="image/png" href="/logo.png">
 
     <!-- Firebase SDK -->
     <script type="module">
@@ -65,7 +65,7 @@
     <header id="main-header">
         <div class="header-container">
             <div class="logo-wrapper">
-                <img src="public/logo.png" alt="MKC App Logo" class="header-logo">
+                <img src="/logo.png" alt="MKC App Logo" class="header-logo">
             </div>
             <nav id="main-nav">
                 <button class="nav-btn active" data-tab="quiz" onclick="switchTab('quiz')">Daily Quiz</button>
@@ -97,7 +97,7 @@
             <div class="static-map-wrapper"
                 style="min-height: 500px; background: #f8fafc; border-radius: 20px; display: flex; align-items: center; justify-content: center;">
                 <!-- Using a high-quality placeholder that matches the regional layout -->
-                <img id="korea-map-image" src="korea-map-realistic.png" alt="South Korea Regional Map">
+                <img id="korea-map-image" src="/korea-map-realistic.png" alt="South Korea Regional Map">
                 <div class="map-hotspots">
                     <div class="hotspot hotspot-seoul" onclick="showDialect('seoul')"
                         onmouseover="showDialect('seoul')">
@@ -151,7 +151,7 @@
             <div class="map-layout">
                 <div class="map-visual-container">
                     <div class="static-map-wrapper anatomy-wrapper" style="max-width: 400px;">
-                        <img src="public/Gemini_Generated_Image_42dytx42dytx42dy.png" alt="Human Anatomy"
+                        <img src="/Gemini_Generated_Image_42dytx42dytx42dy.png" alt="Human Anatomy"
                             style="width: 100%; border-radius: 20px;">
                         <div class="map-hotspots anatomy-hotspots">
                             <!-- Head -->
@@ -222,7 +222,7 @@
                     </div>
 
                     <div class="static-map-wrapper anatomy-wrapper" style="max-width: 400px; margin-top: 2rem;">
-                        <img src="public/Gemini_Generated_Image_6swdgd6swdgd6swd.png" alt="Human Anatomy Back"
+                        <img src="/Gemini_Generated_Image_6swdgd6swdgd6swd.png" alt="Human Anatomy Back"
                             style="width: 100%; border-radius: 20px;">
                         <div class="map-hotspots anatomy-hotspots">
                             <!-- Back Head & Neck -->
@@ -324,7 +324,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="main.js"></script>
+    <script type="module" src="/main.js"></script>
 </body>
 
 </html>
