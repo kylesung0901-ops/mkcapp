@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>MKC App - Regional Dialects Map</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Learn Korean regional dialects through an interactive map. Explore Seoul, Gyeongsang, Jeolla dialects and more.">
+    <meta name="keywords" content="Korean Dialects, Learning Korean, Satori, Korean Map, Education, MKC App">
+
+    <!-- Open Graph / Social Sharing -->
+    <meta property="og:title" content="MKC App - Regional Dialects Map">
+    <meta property="og:description"
+        content="Explore the unique sounds of South Korea with our interactive dialect map.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="public/logo.png">
+    <meta property="og:url" content="https://mkcapp.example.com"> <!-- Placeholder for URL -->
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="MKC App - Regional Dialects Map">
+    <meta name="twitter:description"
+        content="Explore the unique sounds of South Korea with our interactive dialect map.">
+    <meta name="twitter:image" content="public/logo.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="public/logo.png">
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB8Rh0gArBTUXvIvUEi1nRDpypuCjg4iOc",
+            authDomain: "mkcapp-dc0f5.firebaseapp.com",
+            projectId: "mkcapp-dc0f5",
+            storageBucket: "mkcapp-dc0f5.firebasestorage.app",
+            messagingSenderId: "228068258412",
+            appId: "1:228068258412:web:32827c210b11b509a2de49",
+            measurementId: "G-VVBG6G3ESJ"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        console.log("Firebase initialized successfully");
+    </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header id="main-header">
+        <div class="header-container">
+            <div class="logo-wrapper">
+                <img src="public/logo.png" alt="MKC App Logo" class="header-logo">
+            </div>
+            <nav id="main-nav">
+                <button class="nav-btn active" data-tab="quiz" onclick="switchTab('quiz')">Daily Quiz</button>
+                <button class="nav-btn" data-tab="map" onclick="switchTab('map')">Dialect Map</button>
+                <button class="nav-btn" data-tab="hospital" onclick="switchTab('hospital')">Hospital</button>
+            </nav>
+        </div>
+    </header>
+
+    <main id="app-content">
+        <!-- Quiz Section -->
+        <section id="quiz-section" class="section active">
+            <div class="section-header">
+                <h2>Daily Learning Quiz</h2>
+                <p>Test your Korean skills with daily challenges.</p>
+            </div>
+            <div id="quiz-container">
+                <!-- Quizzes injected by JS -->
+            </div>
+        </section>
+
+        <!-- Map Section -->
+        <section id="map-section" class="section">
+            <div class="section-header">
+                <h2>Regional Dialects</h2>
+                <p>Hover over or click a region to see dialect info.</p>
+            </div>
+
+            <div class="static-map-wrapper"
+                style="min-height: 500px; background: #f8fafc; border-radius: 20px; display: flex; align-items: center; justify-content: center;">
+                <!-- Using a high-quality placeholder that matches the regional layout -->
+                <img id="korea-map-image" src="korea-map-realistic.png" alt="South Korea Regional Map">
+                <div class="map-hotspots">
+                    <div class="hotspot hotspot-seoul" onclick="showDialect('seoul')"
+                        onmouseover="showDialect('seoul')">
+                        <span class="hotspot-label">Seoul & Gyeonggi</span>
+                    </div>
+                    <div class="hotspot hotspot-gangwon" onclick="showDialect('gangwon')"
+                        onmouseover="showDialect('gangwon')">
+                        <span class="hotspot-label">Gangwon</span>
+                    </div>
+                    <div class="hotspot hotspot-chungcheong" onclick="showDialect('chungcheong')"
+                        onmouseover="showDialect('chungcheong')">
+                        <span class="hotspot-label">Chungcheong</span>
+                    </div>
+                    <div class="hotspot hotspot-jeolla" onclick="showDialect('jeolla')"
+                        onmouseover="showDialect('jeolla')">
+                        <span class="hotspot-label">Jeolla</span>
+                    </div>
+                    <div class="hotspot hotspot-gyeongsang" onclick="showDialect('gyeongsang')"
+                        onmouseover="showDialect('gyeongsang')">
+                        <span class="hotspot-label">Gyeongsang</span>
+                    </div>
+                    <div class="hotspot hotspot-jeju" onclick="showDialect('jeju')" onmouseover="showDialect('jeju')">
+                        <span class="hotspot-label">Jeju Island</span>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            <div id="dialect-info" class="glass-card">
+                <div class="info-placeholder">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">👆</div>
+                    Hover over a region to see dialect info.
+                </div>
+                <div class="info-content" style="display: none;">
+                    <h3 id="region-title"
+                        style="margin-bottom: 0.75rem; font-size: 1.8rem; color: var(--primary-color);"></h3>
+                    <div id="region-desc" style="font-size: 1.1rem; line-height: 1.8; color: var(--text-main);">
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <!-- Hospital Section -->
+        <section id="hospital-section" class="section">
+            <div class="section-header">
+                <h2>Medical Symptoms & Information</h2>
+                <p>Click or hover on a body part to see common symptoms in English and Korean.</p>
+            </div>
+
+            <div class="map-layout">
+                <div class="map-visual-container">
+                    <div class="static-map-wrapper anatomy-wrapper" style="max-width: 400px;">
+                        <img src="public/Gemini_Generated_Image_42dytx42dytx42dy.png" alt="Human Anatomy"
+                            style="width: 100%; border-radius: 20px;">
+                        <div class="map-hotspots anatomy-hotspots">
+                            <!-- Head -->
+                            <div class="hotspot body-hotspot hotspot-head"
+                                style="top: 2%; left: 38%; width: 24%; height: 12%; border-radius: 50%;"
+                                onclick="showSymptoms('head')" onmouseover="showSymptoms('head')"></div>
+                            <!-- Eyes -->
+                            <div class="hotspot body-hotspot hotspot-eyes"
+                                style="top: 5.5%; left: 41%; width: 18%; height: 3%; border-radius: 99px;"
+                                onclick="showSymptoms('eyes')" onmouseover="showSymptoms('eyes')"></div>
+                            <!-- Neck/Throat -->
+                            <div class="hotspot body-hotspot hotspot-throat_neck"
+                                style="top: 13.5%; left: 42%; width: 16%; height: 4%;"
+                                onclick="showSymptoms('throat_neck')" onmouseover="showSymptoms('throat_neck')"></div>
+                            <!-- Shoulders -->
+                            <div class="hotspot body-hotspot hotspot-shoulder"
+                                style="top: 15%; left: 24%; width: 52%; height: 8%;" onclick="showSymptoms('shoulder')"
+                                onmouseover="showSymptoms('shoulder')"></div>
+                            <!-- Chest/Lungs -->
+                            <div class="hotspot body-hotspot hotspot-chest_lungs"
+                                style="top: 22%; left: 32%; width: 36%; height: 12%;"
+                                onclick="showSymptoms('chest_lungs')" onmouseover="showSymptoms('chest_lungs')"></div>
+                            <!-- Heart -->
+                            <div class="hotspot body-hotspot hotspot-heart"
+                                style="top: 25%; left: 42%; width: 12%; height: 8%; border-radius: 50%;"
+                                onclick="showSymptoms('heart')" onmouseover="showSymptoms('heart')"></div>
+                            <!-- Liver -->
+                            <div class="hotspot body-hotspot hotspot-liver"
+                                style="top: 34%; left: 35%; width: 14%; height: 8%;" onclick="showSymptoms('liver')"
+                                onmouseover="showSymptoms('liver')"></div>
+                            <!-- Stomach -->
+                            <div class="hotspot body-hotspot hotspot-stomach"
+                                style="top: 34%; left: 51%; width: 14%; height: 8%;" onclick="showSymptoms('stomach')"
+                                onmouseover="showSymptoms('stomach')"></div>
+                            <!-- Intestines -->
+                            <div class="hotspot body-hotspot hotspot-intestine"
+                                style="top: 42%; left: 35%; width: 30%; height: 10%;"
+                                onclick="showSymptoms('intestine')" onmouseover="showSymptoms('intestine')"></div>
+                            <!-- Arms/Elbows -->
+                            <div class="hotspot body-hotspot hotspot-arm_elbow"
+                                style="top: 24%; left: 18%; width: 12%; height: 26%;"
+                                onclick="showSymptoms('arm_elbow')" onmouseover="showSymptoms('arm_elbow')"></div>
+                            <div class="hotspot body-hotspot hotspot-arm_elbow"
+                                style="top: 24%; left: 70%; width: 12%; height: 26%;"
+                                onclick="showSymptoms('arm_elbow')" onmouseover="showSymptoms('arm_elbow')"></div>
+                            <!-- Hands/Wrists -->
+                            <div class="hotspot body-hotspot hotspot-hand_wrist"
+                                style="top: 50%; left: 12%; width: 14%; height: 12%;"
+                                onclick="showSymptoms('hand_wrist')" onmouseover="showSymptoms('hand_wrist')"></div>
+                            <div class="hotspot body-hotspot hotspot-hand_wrist"
+                                style="top: 50%; left: 74%; width: 14%; height: 12%;"
+                                onclick="showSymptoms('hand_wrist')" onmouseover="showSymptoms('hand_wrist')"></div>
+                            <!-- Legs/Thighs -->
+                            <div class="hotspot body-hotspot hotspot-leg_thigh"
+                                style="top: 60%; left: 32%; width: 16%; height: 20%;"
+                                onclick="showSymptoms('leg_thigh')" onmouseover="showSymptoms('leg_thigh')"></div>
+                            <div class="hotspot body-hotspot hotspot-leg_thigh"
+                                style="top: 60%; left: 52%; width: 16%; height: 20%;"
+                                onclick="showSymptoms('leg_thigh')" onmouseover="showSymptoms('leg_thigh')"></div>
+                            <!-- Knees -->
+                            <div class="hotspot body-hotspot hotspot-knee"
+                                style="top: 80%; left: 34%; width: 14%; height: 8%; border-radius: 50%;"
+                                onclick="showSymptoms('knee')" onmouseover="showSymptoms('knee')"></div>
+                            <div class="hotspot body-hotspot hotspot-knee"
+                                style="top: 80%; left: 52%; width: 14%; height: 8%; border-radius: 50%;"
+                                onclick="showSymptoms('knee')" onmouseover="showSymptoms('knee')"></div>
+                        </div>
+                    </div>
+
+                    <div class="static-map-wrapper anatomy-wrapper" style="max-width: 400px; margin-top: 2rem;">
+                        <img src="public/Gemini_Generated_Image_6swdgd6swdgd6swd.png" alt="Human Anatomy Back"
+                            style="width: 100%; border-radius: 20px;">
+                        <div class="map-hotspots anatomy-hotspots">
+                            <!-- Back Head & Neck -->
+                            <div class="hotspot body-hotspot hotspot-back_head_neck"
+                                style="top: 2%; left: 38%; width: 24%; height: 12%; border-radius: 50%;"
+                                onclick="showSymptoms('back_head_neck')" onmouseover="showSymptoms('back_head_neck')">
+                            </div>
+                            <!-- Upper Back -->
+                            <div class="hotspot body-hotspot hotspot-upper_back_scapula"
+                                style="top: 15%; left: 30%; width: 40%; height: 12%;"
+                                onclick="showSymptoms('upper_back_scapula')"
+                                onmouseover="showSymptoms('upper_back_scapula')"></div>
+                            <!-- Spine -->
+                            <div class="hotspot body-hotspot hotspot-spine"
+                                style="top: 27%; left: 45%; width: 10%; height: 20%;" onclick="showSymptoms('spine')"
+                                onmouseover="showSymptoms('spine')"></div>
+                            <!-- Lower Back -->
+                            <div class="hotspot body-hotspot hotspot-lower_back"
+                                style="top: 40%; left: 35%; width: 30%; height: 8%;"
+                                onclick="showSymptoms('lower_back')" onmouseover="showSymptoms('lower_back')"></div>
+                            <!-- Elbow Back -->
+                            <div class="hotspot body-hotspot hotspot-elbow_back"
+                                style="top: 35%; left: 18%; width: 10%; height: 6%;"
+                                onclick="showSymptoms('elbow_back')" onmouseover="showSymptoms('elbow_back')"></div>
+                            <div class="hotspot body-hotspot hotspot-elbow_back"
+                                style="top: 35%; left: 72%; width: 10%; height: 6%;"
+                                onclick="showSymptoms('elbow_back')" onmouseover="showSymptoms('elbow_back')"></div>
+                            <!-- Buttocks -->
+                            <div class="hotspot body-hotspot hotspot-buttocks"
+                                style="top: 48%; left: 32%; width: 36%; height: 12%;" onclick="showSymptoms('buttocks')"
+                                onmouseover="showSymptoms('buttocks')"></div>
+                            <!-- Hamstring -->
+                            <div class="hotspot body-hotspot hotspot-hamstring"
+                                style="top: 60%; left: 32%; width: 16%; height: 15%;"
+                                onclick="showSymptoms('hamstring')" onmouseover="showSymptoms('hamstring')"></div>
+                            <div class="hotspot body-hotspot hotspot-hamstring"
+                                style="top: 60%; left: 52%; width: 16%; height: 15%;"
+                                onclick="showSymptoms('hamstring')" onmouseover="showSymptoms('hamstring')"></div>
+                            <!-- Knee Back -->
+                            <div class="hotspot body-hotspot hotspot-knee_back"
+                                style="top: 75%; left: 34%; width: 14%; height: 6%;" onclick="showSymptoms('knee_back')"
+                                onmouseover="showSymptoms('knee_back')"></div>
+                            <div class="hotspot body-hotspot hotspot-knee_back"
+                                style="top: 75%; left: 52%; width: 14%; height: 6%;" onclick="showSymptoms('knee_back')"
+                                onmouseover="showSymptoms('knee_back')"></div>
+                            <!-- Calf -->
+                            <div class="hotspot body-hotspot hotspot-calf"
+                                style="top: 81%; left: 34%; width: 14%; height: 10%;" onclick="showSymptoms('calf')"
+                                onmouseover="showSymptoms('calf')"></div>
+                            <div class="hotspot body-hotspot hotspot-calf"
+                                style="top: 81%; left: 52%; width: 14%; height: 10%;" onclick="showSymptoms('calf')"
+                                onmouseover="showSymptoms('calf')"></div>
+                            <!-- Achilles -->
+                            <div class="hotspot body-hotspot hotspot-achilles"
+                                style="top: 91%; left: 36%; width: 10%; height: 4%;" onclick="showSymptoms('achilles')"
+                                onmouseover="showSymptoms('achilles')"></div>
+                            <div class="hotspot body-hotspot hotspot-achilles"
+                                style="top: 91%; left: 54%; width: 10%; height: 4%;" onclick="showSymptoms('achilles')"
+                                onmouseover="showSymptoms('achilles')"></div>
+                            <!-- Heel -->
+                            <div class="hotspot body-hotspot hotspot-heel"
+                                style="top: 95%; left: 36%; width: 10%; height: 4%;" onclick="showSymptoms('heel')"
+                                onmouseover="showSymptoms('heel')"></div>
+                            <div class="hotspot body-hotspot hotspot-heel"
+                                style="top: 95%; left: 54%; width: 10%; height: 4%;" onclick="showSymptoms('heel')"
+                                onmouseover="showSymptoms('heel')"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="symptom-info" class="glass-card">
+                    <div class="info-placeholder">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">🔍</div>
+                        Select a body part to see symptoms.
+                    </div>
+                    <div class="info-content" style="display: none;">
+                        <h3 id="anatomy-title"
+                            style="margin-bottom: 1.5rem; font-size: 1.5rem; color: var(--primary-color); border-bottom: 2px solid #e2e8f0; padding-bottom: 0.5rem;">
+                        </h3>
+                        <ul id="symptom-list" style="list-style: none; padding: 0;">
+                            <!-- Symptoms injected by JS -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Floating Inquiry Buttons -->
+    <div class="floating-actions">
+        <div class="action-btn kakao">
+            <span class="btn-icon">💬</span>
+            <span class="btn-text">KakaoTalk Enquiry</span>
+        </div>
+        <div class="action-btn phone">
+            <span class="btn-icon">📞</span>
+            <span class="btn-text">Call Study Center</span>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="main.js"></script>
+</body>
+
+</html>
